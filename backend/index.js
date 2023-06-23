@@ -6,7 +6,7 @@ const MongoClient = mongodb.MongoClient;
 
 const port = process.env.PORT || 8000;
 
-MongoClient.connect(process.env.RESTREVIEWS_DB_URL, {
+MongoClient.connect(process.env.BARSREVIEWS_DB_URL, {
   maxPoolSize: 50,
   wtimeoutMS: 2500,
   useNewUrlParser: true,
