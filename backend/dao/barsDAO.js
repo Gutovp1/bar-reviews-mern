@@ -25,7 +25,28 @@ export default class BarsDAO {
         query = { "address.zipcode": { $eq: filters["zipcode"] } };
       }
     }
+
+    let cursor;
+    try {
+      cursor = await bars.find(query);
+    } catch (e) {
+      console.error(`Unable to issue find command, ${e}`);
+      return { barsList: [], totalNumBars: 0 };
+    }
+
+    const displayCursor = cursor.limit(barsPerPage).skip(barsPerPage * page);
+
+    try {
+      const barsList = await displayCursor.toArray();
+      const totalNumBars = await bars.countDocuments(query);
+
+      return { restaurantsList, totalNumRestaurants };
+    } catch (e) {
+      console.error(
+        `Unable to convert cursor to array or problem counting documents, ${e}`
+      );
+      return { barsList: [], totalNumBars: 0 };
+    }
   }
 }
-
 //https://youtu.be/mrHNSanmqQ4?t=1643

@@ -1,6 +1,7 @@
 import app from "./server.js";
 import mongodb from "mongodb";
 import dotenv from "dotenv";
+import BarsDAO from "./dao/barsDAO.js";
 dotenv.config();
 const MongoClient = mongodb.MongoClient;
 
@@ -16,6 +17,7 @@ MongoClient.connect(process.env.BARSREVIEWS_DB_URL, {
     process.exit(1);
   })
   .then(async (client) => {
+    await BarsDAO.injectDB(client);
     app.listen(port, () => {
       console.log(`listening on port ${port}`);
     });
