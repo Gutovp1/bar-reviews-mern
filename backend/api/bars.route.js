@@ -3,6 +3,6 @@ import BarsCtrl from "./bars.controller.js";
 
 const router = express.Router();
 
-router.route("/").get(RestaurantsCtrl.apiGetRestaurants);
+router.route("/").get(BarsCtrl.apiGetBars);
 
 export default router;
