@@ -1,13 +1,13 @@
 import app from "./server.js";
 import mongodb from "mongodb";
 import dotenv from "dotenv";
-import BarsDAO from "./dao/barsDAO.js";
+import RestaurantsDAO from "./dao/restaurantsDAO.js";
 dotenv.config();
 const MongoClient = mongodb.MongoClient;
 
 const port = process.env.PORT || 8000;
 
-MongoClient.connect(process.env.BARSREVIEWS_DB_URL, {
+MongoClient.connect(process.env.RESTAURANTSREVIEWS_DB_URL, {
   maxPoolSize: 50,
   wtimeoutMS: 2500,
   useNewUrlParser: true,
@@ -17,7 +17,7 @@ MongoClient.connect(process.env.BARSREVIEWS_DB_URL, {
     process.exit(1);
   })
   .then(async (client) => {
-    await BarsDAO.injectDB(client);
+    await RestaurantsDAO.injectDB(client);
     app.listen(port, () => {
       console.log(`listening on port ${port}`);
     });

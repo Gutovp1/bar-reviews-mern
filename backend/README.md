@@ -1,2 +1,3 @@
-# bar-reviews-mern
-crud to manage reviews for bars at any town
+# restaurant-reviews-mern
+
+crud to manage reviews for restaurants at any town

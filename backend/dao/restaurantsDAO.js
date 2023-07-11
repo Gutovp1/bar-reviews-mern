@@ -1,20 +1,26 @@
-let bars;
+let restaurants;
 
-export default class BarsDAO {
+export default class RestaurantsDAO {
   static async injectDB(conn) {
-    if (bars) {
+    if (restaurants) {
       return;
     }
     try {
-      bars = await conn
-        .db(process.env.BARSREVIEWS_NS)
+      restaurants = await conn
+        .db(process.env.RESTAURANTSREVIEWS_NS)
         .collection("restaurants");
     } catch (e) {
-      console.error(`Unable to establish a connection handle in barsDAO: ${e}`);
+      console.error(
+        `Unable to establish a connection handle in restaurantsDAO: ${e}`
+      );
     }
   }
 
-  static async getBars({ filters = null, page = 0, barsPerPage = 20 } = {}) {
+  static async getRestaurants({
+    filters = null,
+    page = 0,
+    restaurantsPerPage = 20,
+  } = {}) {
     let query;
     if (filters) {
       if ("name" in filters) {
@@ -28,24 +34,26 @@ export default class BarsDAO {
 
     let cursor;
     try {
-      cursor = await bars.find(query);
+      cursor = await restaurants.find(query);
     } catch (e) {
       console.error(`Unable to issue find command, ${e}`);
-      return { barsList: [], totalNumBars: 0 };
+      return { restaurantsList: [], totalNumRestaurants: 0 };
     }
 
-    const displayCursor = cursor.limit(barsPerPage).skip(barsPerPage * page);
+    const displayCursor = cursor
+      .limit(restaurantsPerPage)
+      .skip(restaurantsPerPage * page);
 
     try {
-      const barsList = await displayCursor.toArray();
-      const totalNumBars = await bars.countDocuments(query);
+      const restaurantsList = await displayCursor.toArray();
+      const totalNumRestaurants = await restaurants.countDocuments(query);
 
       return { restaurantsList, totalNumRestaurants };
     } catch (e) {
       console.error(
         `Unable to convert cursor to array or problem counting documents, ${e}`
       );
-      return { barsList: [], totalNumBars: 0 };
+      return { restaurantsList: [], totalNumRestaurants: 0 };
     }
   }
 }
