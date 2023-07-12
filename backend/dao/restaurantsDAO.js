@@ -2,6 +2,7 @@ let restaurants;
 
 export default class RestaurantsDAO {
   static async injectDB(conn) {
+    console.log(conn);
     if (restaurants) {
       return;
     }
@@ -57,4 +58,3 @@ export default class RestaurantsDAO {
     }
   }
 }
-//https://youtu.be/mrHNSanmqQ4?t=1643
