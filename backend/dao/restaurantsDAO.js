@@ -1,3 +1,4 @@
+import { ObjectId } from "mongodb";
 let restaurants;
 
 export default class RestaurantsDAO {
