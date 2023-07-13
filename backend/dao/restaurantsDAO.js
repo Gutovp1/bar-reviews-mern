@@ -2,7 +2,6 @@ let restaurants;
 
 export default class RestaurantsDAO {
   static async injectDB(conn) {
-    console.log(conn);
     if (restaurants) {
       return;
     }
