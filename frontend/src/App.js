@@ -1,5 +1,5 @@
-import React from "react";
-import { Switch, Route, Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Routes, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import AddReview from "./components/add-review";
@@ -8,7 +8,7 @@ import RestaurantsList from "./components/restaurants-list";
 import Login from "./components/login";
 
 function App() {
-  const [user, setUser] = React.useState(null);
+  const [user, setUser] = useState(null);
 
   async function login(user = null) {
     setUser(user);
@@ -49,7 +49,7 @@ function App() {
       </nav>
 
       <div className="container mt-3">
-        <Switch>
+        <Routes>
           <Route
             exact
             path={["/", "/restaurants"]}
@@ -67,7 +67,7 @@ function App() {
             path="/login"
             render={(props) => <Login {...props} login={login} />}
           />
-        </Switch>
+        </Routes>
       </div>
     </div>
   );
