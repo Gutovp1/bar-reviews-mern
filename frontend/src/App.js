@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import AddReview from "./components/add-review";
@@ -49,25 +49,27 @@ function App() {
       </nav>
 
       <div className="container mt-3">
-        <Routes>
-          <Route
-            exact
-            path={["/", "/restaurants"]}
-            component={RestaurantsList}
-          />
-          <Route
-            path="/restaurants/:id/review"
-            render={(props) => <AddReview {...props} user={user} />}
-          />
-          <Route
-            path="/restaurants/:id"
-            render={(props) => <Restaurant {...props} user={user} />}
-          />
-          <Route
-            path="/login"
-            render={(props) => <Login {...props} login={login} />}
-          />
-        </Routes>
+        <Router>
+          <Routes>
+            <Route
+              exact
+              path={["/", "/restaurants"]}
+              component={RestaurantsList}
+            />
+            <Route
+              path="/restaurants/:id/review"
+              render={(props) => <AddReview {...props} user={user} />}
+            />
+            <Route
+              path="/restaurants/:id"
+              render={(props) => <Restaurant {...props} user={user} />}
+            />
+            <Route
+              path="/login"
+              render={(props) => <Login {...props} login={login} />}
+            />
+          </Routes>
+        </Router>
       </div>
     </div>
   );
