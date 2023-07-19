@@ -54,7 +54,7 @@ function App() {
             <Route
               exact
               path={["/", "/restaurants"]}
-              component={RestaurantsList}
+              element={RestaurantsList}
             />
             <Route
               path="/restaurants/:id/review"
