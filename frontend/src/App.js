@@ -56,16 +56,10 @@ function App() {
           <Route exact path={"/restaurants"} element={<RestaurantsList />} />
           <Route
             path="/restaurants/:id/review"
-            render={(props) => <AddReview {...props} user={user} />}
+            element={<AddReview user={user} />}
           />
-          <Route
-            path="/restaurants/:id"
-            render={(props) => <Restaurant {...props} user={user} />}
-          />
-          <Route
-            path="/login"
-            render={(props) => <Login {...props} login={login} />}
-          />
+          <Route path="/restaurants/:id" element={<Restaurant user={user} />} />
+          <Route path="/login" element={<Login login={login} />} />
         </Routes>
       </div>
     </div>

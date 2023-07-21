@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import RestaurantDataService from "../services/restaurant";
 import { Link } from "react-router-dom";
 
-const RestaurantsList = (props) => {
+const RestaurantsList = () => {
   const [restaurants, setRestaurants] = useState([]);
   const [searchName, setSearchName] = useState("");
   const [searchZip, setSearchZip] = useState("");
@@ -164,6 +164,7 @@ const RestaurantsList = (props) => {
                       target="_blank"
                       href={"https://www.google.com/maps/place/" + address}
                       className="btn btn-primary col-lg-5 mx-1 mb-1"
+                      rel="noreferrer"
                     >
                       View Map
                     </a>

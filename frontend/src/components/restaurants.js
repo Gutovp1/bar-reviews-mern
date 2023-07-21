@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import RestaurantDataService from "../services/restaurant";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const Restaurant = (props) => {
   const initialRestaurantState = {
@@ -11,7 +11,7 @@ const Restaurant = (props) => {
     reviews: [],
   };
   const [restaurant, setRestaurant] = useState(initialRestaurantState);
-
+  let { id } = useParams();
   const getRestaurant = (id) => {
     RestaurantDataService.get(id)
       .then((response) => {
@@ -24,8 +24,10 @@ const Restaurant = (props) => {
   };
 
   useEffect(() => {
-    getRestaurant(props.match.params.id);
-  }, [props.match.params.id]);
+    getRestaurant(id);
+  }, [id]);
+  //   getRestaurant(props.match.params.id);
+  // }, [props.match.params.id]);
 
   const deleteReview = (reviewId, index) => {
     RestaurantDataService.deleteReview(reviewId, props.user.id)
@@ -56,7 +58,8 @@ const Restaurant = (props) => {
             {restaurant.address.zipcode}
           </p>
           <Link
-            to={"/restaurants/" + props.match.params.id + "/review"}
+            to={"/restaurants/" + id + "/review"}
+            // to={"/restaurants/" + props.match.params.id + "/review"}
             className="btn btn-primary"
           >
             Add Review
@@ -90,7 +93,8 @@ const Restaurant = (props) => {
                               to={{
                                 pathname:
                                   "/restaurants/" +
-                                  props.match.params.id +
+                                  id +
+                                  // props.match.params.id +
                                   "/review",
                                 state: {
                                   currentReview: review,

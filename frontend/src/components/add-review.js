@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import RestaurantDataService from "../services/restaurant";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const AddReview = (props) => {
   let initialReviewState = "";
@@ -14,7 +14,7 @@ const AddReview = (props) => {
 
   const [review, setReview] = useState(initialReviewState);
   const [submitted, setSubmitted] = useState(false);
-
+  let { id } = useParams();
   const handleInputChange = (event) => {
     setReview(event.target.value);
   };
@@ -24,7 +24,8 @@ const AddReview = (props) => {
       text: review,
       name: props.user.name,
       user_id: props.user.id,
-      restaurant_id: props.match.params.id,
+      restaurant_id: id,
+      // restaurant_id: props.match.params.id,
     };
 
     if (editing) {
@@ -57,7 +58,8 @@ const AddReview = (props) => {
             <div>
               <h4>You submitted successfully!</h4>
               <Link
-                to={"/restaurants/" + props.match.params.id}
+                to={"/restaurants/" + id}
+                // to={"/restaurants/" + props.match.params.id}
                 className="btn btn-success"
               >
                 Back to Restaurant
