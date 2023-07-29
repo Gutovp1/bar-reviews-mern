@@ -1,21 +1,22 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-const Login = (props) => {
+const Login = ({ login }) => {
+  const navigate = useNavigate();
   const initialUserState = {
     name: "",
     id: "",
   };
 
   const [user, setUser] = useState(initialUserState);
-
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setUser({ ...user, [name]: value });
   };
 
-  const login = () => {
-    props.login(user);
-    props.history.push("/");
+  const signin = () => {
+    login(user);
+    navigate(-1);
   };
 
   return (
@@ -47,7 +48,7 @@ const Login = (props) => {
           />
         </div>
 
-        <button onClick={login} className="btn btn-success">
+        <button onClick={signin} className="btn btn-success">
           Login
         </button>
       </div>

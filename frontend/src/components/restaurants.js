@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import RestaurantDataService from "../services/restaurant";
 import { Link, useParams } from "react-router-dom";
 
-const Restaurant = (props) => {
+const Restaurant = ({ user }) => {
   const initialRestaurantState = {
     id: null,
     name: "",
@@ -30,7 +30,7 @@ const Restaurant = (props) => {
   // }, [props.match.params.id]);
 
   const deleteReview = (reviewId, index) => {
-    RestaurantDataService.deleteReview(reviewId, props.user.id)
+    RestaurantDataService.deleteReview(reviewId, user.id)
       .then((response) => {
         setRestaurant((prevState) => {
           prevState.reviews.splice(index, 1);
@@ -81,7 +81,7 @@ const Restaurant = (props) => {
                           <strong>Date: </strong>
                           {review.date}
                         </p>
-                        {props.user && props.user.id === review.user_id && (
+                        {user && user.id === review.user_id && (
                           <div className="row">
                             <a
                               onClick={() => deleteReview(review._id, index)}
