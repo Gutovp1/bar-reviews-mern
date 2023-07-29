@@ -29,26 +29,24 @@ const RestaurantsList = () => {
     setSearchCuisine(searchCuisine);
   };
 
-  const retrieveRestaurants = () => {
-    RestaurantDataService.getAll()
-      .then((response) => {
-        console.log(response.data);
-        setRestaurants(response.data.restaurants);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+  const retrieveRestaurants = async () => {
+    const respAll = await RestaurantDataService.getAll();
+    try {
+      console.log(respAll.data);
+      setRestaurants(respAll.data.restaurants);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
-  const retrieveCuisines = () => {
-    RestaurantDataService.getCuisines()
-      .then((response) => {
-        console.log(response.data);
-        setCuisines(["All Cuisines"].concat(response.data));
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+  const retrieveCuisines = async () => {
+    const respCuisines = await RestaurantDataService.getCuisines();
+    try {
+      console.log(respCuisines.data);
+      setCuisines(["All Cuisines", ...respCuisines.data]);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const refreshList = () => {
@@ -56,14 +54,13 @@ const RestaurantsList = () => {
   };
 
   const find = (query, by) => {
-    RestaurantDataService.find(query, by)
-      .then((response) => {
-        console.log(response.data);
-        setRestaurants(response.data.restaurants);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+    const respFind = RestaurantDataService.find(query, by);
+    try {
+      console.log(respFind.data);
+      setRestaurants(respFind.data.restaurants);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const findByName = () => {
@@ -75,7 +72,7 @@ const RestaurantsList = () => {
   };
 
   const findByCuisine = () => {
-    if (searchCuisine == "All Cuisines") {
+    if (searchCuisine === "All Cuisines") {
       refreshList();
     } else {
       find(searchCuisine, "cuisine");
@@ -124,7 +121,12 @@ const RestaurantsList = () => {
         <div className="input-group col-lg-4">
           <select onChange={onChangeSearchCuisine}>
             {cuisines.map((cuisine) => {
-              return <option value={cuisine}> {cuisine.substr(0, 20)} </option>;
+              return (
+                <option key={cuisine} value={cuisine}>
+                  {" "}
+                  {cuisine.slice(0, 20)}{" "}
+                </option>
+              );
             })}
           </select>
           <div className="input-group-append">
@@ -143,14 +145,14 @@ const RestaurantsList = () => {
           const address = `${restaurant.address.building} ${restaurant.address.street}, ${restaurant.address.zipcode}`;
           return (
             <div className="col-lg-4 pb-1">
-              <div className="card">
+              <div key={restaurant.id} className="card">
                 <div className="card-body">
                   <h5 className="card-title">{restaurant.name}</h5>
                   <p className="card-text">
-                    <strong>Cuisine: </strong>
+                    <b>Cuisine: </b>
                     {restaurant.cuisine}
                     <br />
-                    <strong>Address: </strong>
+                    <b>Address: </b>
                     {address}
                   </p>
                   <div className="row">
@@ -160,14 +162,14 @@ const RestaurantsList = () => {
                     >
                       View Reviews
                     </Link>
-                    <a
+                    <Link
                       target="_blank"
-                      href={"https://www.google.com/maps/place/" + address}
+                      to={"https://www.google.com/maps/place/" + address}
                       className="btn btn-primary col-lg-5 mx-1 mb-1"
                       rel="noreferrer"
                     >
                       View Map
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
