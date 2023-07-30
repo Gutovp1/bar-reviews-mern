@@ -1,65 +1,64 @@
 import React, { useState } from "react";
 import RestaurantDataService from "../services/restaurant";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 
-const AddReview = (props) => {
-  let initialReviewState = "";
+const AddReview = ({ user }) => {
+  const [initialReviewState, setInitialReviewState] = useState("");
+  const [editing, setEditing] = useState(false);
 
-  let editing = false;
+  const location = useLocation();
 
-  if (props.location.state && props.location.state.currentReview) {
-    editing = true;
-    initialReviewState = props.location.state.currentReview.text;
+  if (location.state && location.state.currentReview) {
+    setEditing(true);
+    setInitialReviewState(location.state.currentReview.text);
   }
 
   const [review, setReview] = useState(initialReviewState);
   const [submitted, setSubmitted] = useState(false);
-  let { id } = useParams();
+  const { id } = useParams();
+
   const handleInputChange = (event) => {
     setReview(event.target.value);
   };
 
   const saveReview = () => {
-    var data = {
+    let data = {
       text: review,
-      name: props.user.name,
-      user_id: props.user.id,
+      name: user.name,
+      user_id: user.id,
       restaurant_id: id,
-      // restaurant_id: props.match.params.id,
     };
 
     if (editing) {
-      data.review_id = props.location.state.currentReview._id;
-      RestaurantDataService.updateReview(data)
-        .then((response) => {
-          setSubmitted(true);
-          console.log(response.data);
-        })
-        .catch((e) => {
-          console.log(e);
-        });
+      data.review_id = location.state.currentReview._id;
+      const respReviewUpdate = RestaurantDataService.updateReview(data);
+      try {
+        setSubmitted(true);
+        console.log(respReviewUpdate.data);
+      } catch (e) {
+        console.log(e);
+      }
     } else {
-      RestaurantDataService.createReview(data)
-        .then((response) => {
-          setSubmitted(true);
-          console.log(response.data);
-        })
-        .catch((e) => {
-          console.log(e);
-        });
+      const respReviewCreate = RestaurantDataService.createReview(data);
+      try {
+        setSubmitted(true);
+        console.log(respReviewCreate.data);
+      } catch (e) {
+        console.log(e);
+      }
     }
   };
 
   return (
     <div>
-      {props.user ? (
+      {user ? (
         <div className="submit-form">
           {submitted ? (
             <div>
               <h4>You submitted successfully!</h4>
               <Link
                 to={"/restaurants/" + id}
-                // to={"/restaurants/" + props.match.params.id}
+                // to={"/restaurants/" + match.params.id}
                 className="btn btn-success"
               >
                 Back to Restaurant
