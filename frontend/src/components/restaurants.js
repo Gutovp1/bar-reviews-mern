@@ -12,15 +12,14 @@ const Restaurant = ({ user }) => {
   };
   const [restaurant, setRestaurant] = useState(initialRestaurantState);
   let { id } = useParams();
-  const getRestaurant = (id) => {
-    RestaurantDataService.get(id)
-      .then((response) => {
-        setRestaurant(response.data);
-        console.log(response.data);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+  const getRestaurant = async (id) => {
+    const respID = await RestaurantDataService.get(id);
+    try {
+      setRestaurant(respID.data);
+      console.log(respID.data);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   useEffect(() => {
@@ -29,19 +28,18 @@ const Restaurant = ({ user }) => {
   //   getRestaurant(props.match.params.id);
   // }, [props.match.params.id]);
 
-  const deleteReview = (reviewId, index) => {
-    RestaurantDataService.deleteReview(reviewId, user.id)
-      .then((response) => {
-        setRestaurant((prevState) => {
-          prevState.reviews.splice(index, 1);
-          return {
-            ...prevState,
-          };
-        });
-      })
-      .catch((e) => {
-        console.log(e);
+  const deleteReview = async (reviewId, index) => {
+    await RestaurantDataService.deleteReview(reviewId, user.id);
+    try {
+      setRestaurant((prevState) => {
+        prevState.reviews.splice(index, 1);
+        return {
+          ...prevState,
+        };
       });
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
@@ -50,10 +48,10 @@ const Restaurant = ({ user }) => {
         <div>
           <h5>{restaurant.name}</h5>
           <p>
-            <strong>Cuisine: </strong>
+            <b>Cuisine: </b>
             {restaurant.cuisine}
             <br />
-            <strong>Address: </strong>
+            <b>Address: </b>
             {restaurant.address.building} {restaurant.address.street},{" "}
             {restaurant.address.zipcode}
           </p>
@@ -75,10 +73,10 @@ const Restaurant = ({ user }) => {
                         <p className="card-text">
                           {review.text}
                           <br />
-                          <strong>User: </strong>
+                          <b>User: </b>
                           {review.name}
                           <br />
-                          <strong>Date: </strong>
+                          <b>Date: </b>
                           {review.date}
                         </p>
                         {user && user.id === review.user_id && (

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import RestaurantDataService from "../services/restaurant";
 import { Link, useLocation, useParams } from "react-router-dom";
 
@@ -8,10 +8,12 @@ const AddReview = ({ user }) => {
 
   const location = useLocation();
 
-  if (location.state && location.state.currentReview) {
-    setEditing(true);
-    setInitialReviewState(location.state.currentReview.text);
-  }
+  useEffect(() => {
+    if (location.state && location.state.currentReview) {
+      setEditing(true);
+      setInitialReviewState(location.state.currentReview.text);
+    }
+  }, [location.state]);
 
   const [review, setReview] = useState(initialReviewState);
   const [submitted, setSubmitted] = useState(false);
@@ -21,7 +23,7 @@ const AddReview = ({ user }) => {
     setReview(event.target.value);
   };
 
-  const saveReview = () => {
+  const saveReview = async () => {
     let data = {
       text: review,
       name: user.name,
@@ -31,7 +33,8 @@ const AddReview = ({ user }) => {
 
     if (editing) {
       data.review_id = location.state.currentReview._id;
-      const respReviewUpdate = RestaurantDataService.updateReview(data);
+      console.log("edit ", data.review_id);
+      const respReviewUpdate = await RestaurantDataService.updateReview(data);
       try {
         setSubmitted(true);
         console.log(respReviewUpdate.data);
@@ -39,7 +42,7 @@ const AddReview = ({ user }) => {
         console.log(e);
       }
     } else {
-      const respReviewCreate = RestaurantDataService.createReview(data);
+      const respReviewCreate = await RestaurantDataService.createReview(data);
       try {
         setSubmitted(true);
         console.log(respReviewCreate.data);
