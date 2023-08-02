@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import RestaurantDataService from "../services/restaurant";
+import RestaurantDataService from "../services/restaurantDS";
 import { Link, useLocation, useParams } from "react-router-dom";
 
 const AddReview = ({ user }) => {
@@ -35,6 +35,7 @@ const AddReview = ({ user }) => {
       data.review_id = location.state.currentReview._id;
       console.log("edit ", data.review_id);
       const respReviewUpdate = await RestaurantDataService.updateReview(data);
+      console.log("edit2 ", respReviewUpdate);
       try {
         setSubmitted(true);
         console.log(respReviewUpdate.data);
@@ -43,6 +44,7 @@ const AddReview = ({ user }) => {
       }
     } else {
       const respReviewCreate = await RestaurantDataService.createReview(data);
+      console.log("create ", respReviewCreate);
       try {
         setSubmitted(true);
         console.log(respReviewCreate.data);

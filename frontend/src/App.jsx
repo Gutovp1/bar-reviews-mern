@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { Routes, Route, Link } from "react-router-dom";
-// import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import AddReview from "./components/add-review";
-import Restaurant from "./components/restaurants";
-import RestaurantsList from "./components/restaurants-list";
-import Login from "./components/login";
+import AddReview from "./components/AddReview";
+import Restaurant from "./components/Restaurant";
+import RestaurantsList from "./components/RestaurantsList";
+import Login from "./components/Login";
 
 function App() {
   const [user, setUser] = useState(null);
