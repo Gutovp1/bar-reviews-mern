@@ -16,7 +16,7 @@ const Restaurant = ({ user }) => {
     const respID = await RestaurantDataService.get(id);
     try {
       setRestaurant(respID.data);
-      console.log(respID.data);
+      // console.log(respID.data);
     } catch (e) {
       console.log(e);
     }
