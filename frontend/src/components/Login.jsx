@@ -8,7 +8,6 @@ const Login = ({ login }) => {
     id: "",
   };
   const [user, setUser] = useState(initialUserState);
-  console.log(login, user);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;

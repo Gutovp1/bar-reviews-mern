@@ -16,19 +16,16 @@ const RestaurantsList = () => {
 
   const onChangeSearchName = (e) => {
     const searchName = e.target.value;
-    console.log(searchName)
     setSearchName(searchName);
   };
 
   const onChangeSearchZip = (e) => {
     const searchZip = e.target.value;
-    console.log(searchZip)
     setSearchZip(searchZip);
   };
 
   const onChangeSearchCuisine = (e) => {
     const searchCuisine = e.target.value;
-    console.log(searchCuisine)
     setSearchCuisine(searchCuisine);
   };
 
@@ -58,9 +55,7 @@ const RestaurantsList = () => {
 
   const find = async(query, by) => {
     const respFind = await RestaurantDataService.find(query, by);
-    console.log(respFind);
     try {
-      console.log(respFind.data);
       setRestaurants(respFind.data.restaurants);
     } catch (e) {
       console.log(e);
