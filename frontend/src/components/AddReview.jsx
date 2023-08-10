@@ -1,13 +1,10 @@
-//eslint-disable-next-line
 import React, { useEffect, useState } from "react";
 import RestaurantDataService from "../services/restaurantDS";
-//eslint-disable-next-line
 import { Link, useLocation, useParams } from "react-router-dom";
 
 const AddReview = ({user}) => {
   const [initialReviewState, setInitialReviewState] = useState("");
   const [editing, setEditing] = useState(false);
-
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const currentReview = JSON.parse(decodeURIComponent(searchParams.get("currentReview")));
@@ -37,9 +34,7 @@ const AddReview = ({user}) => {
 
     if (editing) {
       data.review_id = currentReview._id;
-      console.log("edit ", data.review_id);
       const respReviewUpdate = await RestaurantDataService.updateReview(data);
-      console.log("edit2 ", respReviewUpdate);
       try {
         setSubmitted(true);
         console.log(respReviewUpdate.data);
@@ -48,7 +43,6 @@ const AddReview = ({user}) => {
       }
     } else {
       const respReviewCreate = await RestaurantDataService.createReview(data);
-      console.log("create ", respReviewCreate);
       try {
         setSubmitted(true);
         console.log(respReviewCreate.data);
@@ -67,7 +61,6 @@ const AddReview = ({user}) => {
               <h4>You submitted successfully!</h4>
               <Link
                 to={"/restaurants/" + id}
-                // to={"/restaurants/" + match.params.id}
                 className="btn btn-success"
               >
                 Back to Restaurant

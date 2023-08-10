@@ -32,7 +32,6 @@ const RestaurantsList = () => {
   const retrieveRestaurants = async () => {
     const respAll = await RestaurantDataService.getAll();
     try {
-      console.log(respAll.data);
       setRestaurants(respAll.data.restaurants);
     } catch (e) {
       console.log(e);
@@ -42,7 +41,6 @@ const RestaurantsList = () => {
   const retrieveCuisines = async () => {
     const respCuisines = await RestaurantDataService.getCuisines();
     try {
-      console.log(respCuisines.data);
       setCuisines(["All Cuisines", ...respCuisines.data]);
     } catch (e) {
       console.log(e);

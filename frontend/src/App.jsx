@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-
 import AddReview from "./components/AddReview";
 import Restaurant from "./components/Restaurant";
 import RestaurantsList from "./components/RestaurantsList";

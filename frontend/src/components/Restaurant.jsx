@@ -16,7 +16,6 @@ const Restaurant = ({ user }) => {
     const respID = await RestaurantDataService.get(id);
     try {
       setRestaurant(respID.data);
-      // console.log(respID.data);
     } catch (e) {
       console.log(e);
     }
@@ -25,8 +24,6 @@ const Restaurant = ({ user }) => {
   useEffect(() => {
     getRestaurant(id);
   }, [id]);
-  //   getRestaurant(props.match.params.id);
-  // }, [props.match.params.id]);
 
   const deleteReview = async (reviewId, index) => {
     await RestaurantDataService.deleteReview(reviewId, user.id);
@@ -57,7 +54,6 @@ const Restaurant = ({ user }) => {
           </p>
           <Link
             to={"/restaurants/" + id + "/review"}
-            // to={"/restaurants/" + props.match.params.id + "/review"}
             className="btn btn-primary"
           >
             Add Review
@@ -81,12 +77,12 @@ const Restaurant = ({ user }) => {
                         </p>
                         {user && user.id === review.user_id && (
                           <div className="row">
-                            <a
+                            <button
                               onClick={() => deleteReview(review._id, index)}
                               className="btn btn-primary col-lg-5 mx-1 mb-1"
                             >
                               Delete
-                            </a>
+                            </button>
                             <Link
                               to={`/restaurants/${id}/review?currentReview=${encodeURIComponent(JSON.stringify(review))}`}
                               className="btn btn-primary col-lg-5 mx-1 mb-1"
