@@ -7,13 +7,13 @@ const AddReview = ({ user }) => {
   const [editing, setEditing] = useState(false);
 
   const location = useLocation();
-  console.log(location);
-  // useEffect(() => {
+
+  useEffect(() => {
     if (location.state && location.state.currentReview) {
       setEditing(true);
       setInitialReviewState(location.state.currentReview.text);
     }
-  // }, [location.state]);
+  }, [location.state]);
 
   const [review, setReview] = useState(initialReviewState);
   const [submitted, setSubmitted] = useState(false);
