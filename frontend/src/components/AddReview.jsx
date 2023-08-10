@@ -1,19 +1,23 @@
+//eslint-disable-next-line
 import React, { useEffect, useState } from "react";
 import RestaurantDataService from "../services/restaurantDS";
+//eslint-disable-next-line
 import { Link, useLocation, useParams } from "react-router-dom";
 
-const AddReview = ({ user }) => {
+const AddReview = ({user}) => {
   const [initialReviewState, setInitialReviewState] = useState("");
   const [editing, setEditing] = useState(false);
 
   const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const currentReview = JSON.parse(decodeURIComponent(searchParams.get("currentReview")));
 
   useEffect(() => {
-    if (location.state && location.state.currentReview) {
+      if (currentReview) {
       setEditing(true);
-      setInitialReviewState(location.state.currentReview.text);
+      setInitialReviewState(currentReview.text);
     }
-  }, [location.state]);
+  }, [currentReview]);
 
   const [review, setReview] = useState(initialReviewState);
   const [submitted, setSubmitted] = useState(false);
@@ -32,7 +36,7 @@ const AddReview = ({ user }) => {
     };
 
     if (editing) {
-      data.review_id = location.state.currentReview._id;
+      data.review_id = currentReview._id;
       console.log("edit ", data.review_id);
       const respReviewUpdate = await RestaurantDataService.updateReview(data);
       console.log("edit2 ", respReviewUpdate);
