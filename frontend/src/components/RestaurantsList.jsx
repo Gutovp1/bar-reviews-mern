@@ -78,8 +78,13 @@ const RestaurantsList = () => {
 
   return (
     <div>
-      <div className="row pb-1">
-        <div className="input-group col-lg-4">
+      <div className="row pb-1" style={{
+        display: 'flex', justifyContent: 'space-around', alignItems: 'center',
+         padding: '0.2rem 0.4rem' 
+      }}>
+        <div className="input-group col-lg-4"
+        style={{maxWidth: '26vw',width:'100%', padding:0, marginRight:'1rem' }}
+        >
           <input
             type="text"
             className="form-control"
@@ -97,7 +102,7 @@ const RestaurantsList = () => {
             </button>
           </div>
         </div>
-        <div className="input-group col-lg-4">
+        <div className="input-group col-lg-4" style={{maxWidth: '26vw',width:'100%', padding:0, marginRight:'1rem'}}>
           <input
             type="text"
             className="form-control"
@@ -105,7 +110,7 @@ const RestaurantsList = () => {
             value={searchZip}
             onChange={onChangeSearchZip}
           />
-          <div className="input-group-append">
+          <div className="input-group-append" >
             <button
               className="btn btn-outline-secondary"
               type="button"
@@ -115,8 +120,10 @@ const RestaurantsList = () => {
             </button>
           </div>
         </div>
-        <div className="input-group col-lg-4">
-          <select onChange={onChangeSearchCuisine}>
+        <div className="input-group col-lg-4" style={{maxWidth: '26vw',width:'100%',
+       margin:'0', padding:'0'}}>
+          <select onChange={onChangeSearchCuisine}
+          style={{maxWidth:'20.5vw', width:'100%'}}>
             {cuisines.map((cuisine) => {
               return (
                 <option key={cuisine} value={cuisine}>

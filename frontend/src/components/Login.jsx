@@ -20,8 +20,8 @@ const Login = ({ login }) => {
   };
 
   return (
-    <div className="submit-form">
-      <div>
+    <div className="submit-form" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '50vh' }}>
+      <div style={{ maxWidth: '20rem', width: '100%', padding: '2rem', border: '0.1rem solid #ccc', borderRadius: '0.25rem' }}>
         <div className="form-group">
           <label htmlFor="user">Username</label>
           <input
@@ -32,6 +32,7 @@ const Login = ({ login }) => {
             value={user.name}
             onChange={handleInputChange}
             name="name"
+            style={{ width: '100%', marginBottom: '0.75rem' }}
           />
         </div>
 
@@ -45,10 +46,11 @@ const Login = ({ login }) => {
             value={user.id}
             onChange={handleInputChange}
             name="id"
+            style={{ width: '100%', marginBottom: '0.75rem' }}
           />
         </div>
 
-        <button onClick={signin} className="btn btn-success">
+        <button onClick={signin} className="btn btn-success" style={{ width: '100%' }}>
           Login
         </button>
       </div>
